@@ -1,0 +1,40 @@
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build / packaging outputs
+build/
+dist/
+*.spec
+*.egg-info/
+
+# Local runtime data
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Local logs / temp
+*.log
+.tmp/
+tmp/
+
+# macOS app/runtime caches
+*.app/
+
+# Generated local helper binary
+src/ru_wifi_view/mac_wifi_probe
+
+# Documents
+docs/

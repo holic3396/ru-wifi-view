@@ -1,0 +1,8 @@
+# Windows 배포(PyInstaller) 및 실행 공통 의존성
+# 표준 라이브러리 기반으로 최소화했으므로 실제 런타임 필수 패키지는 없음.
+
+# GUI (PySide6)
+PySide6>=6.8
+
+# Windows 단일 실행파일 패키징용
+pyinstaller>=6.0

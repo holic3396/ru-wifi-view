@@ -1,0 +1,82 @@
+name: CI Build
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Build Windows EXE
+        shell: pwsh
+        run: ./scripts/build_windows.ps1
+
+      - name: Rename Windows artifact
+        shell: pwsh
+        run: Copy-Item dist/RUWifiViewMonitor.exe RUWifiViewMonitor-windows.exe
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RUWifiViewMonitor-windows
+          path: RUWifiViewMonitor-windows.exe
+          if-no-files-found: error
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Build macOS app
+        run: |
+          python -m PyInstaller \
+            --clean \
+            --noconfirm \
+            --windowed \
+            --name RUWifiViewMonitor \
+            --paths src \
+            --add-data 'src/ru_wifi_view/mac_wifi_probe.swift:ru_wifi_view' \
+            scripts/run_gui.py
+
+      - name: Package macOS app
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent dist/RUWifiViewMonitor.app RUWifiViewMonitor-macOS.zip
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RUWifiViewMonitor-macOS
+          path: RUWifiViewMonitor-macOS.zip
+          if-no-files-found: error
