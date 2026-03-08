@@ -166,5 +166,5 @@ Or run **Actions → Release → Run workflow** and provide a tag name (e.g. `v1
 
 ## License
 
-No license file is currently provided in this repository.
-Add a `LICENSE` file before public/open-source distribution.
+This project is licensed under the **MIT License**.
+See [LICENSE](./LICENSE) for details.

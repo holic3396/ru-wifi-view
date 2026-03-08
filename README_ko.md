@@ -166,5 +166,5 @@ git push origin v1.0.0
 
 ## 라이선스
 
-현재 저장소에 라이선스 파일이 없습니다.
-공개 배포 전 `LICENSE` 파일 추가를 권장합니다.
+이 프로젝트는 **MIT License**를 따릅니다.
+자세한 내용은 [LICENSE](./LICENSE)를 참고하세요.
